@@ -4,7 +4,7 @@
 
 A legacy mobile app preservation project for Android. Import your collection, browse a catalog, choose an HLE engine, and bring compatible old iOS apps back to life.
 
-Previously called **Cosma**. Current release: **1.1**.
+Previously called **Cosma**. Current release: **1.2.1**.
 
 > Current emulation focuses on **legacy 32-bit ARM iOS apps**. The catalog includes entries from the iOS 2–10 era, but catalog availability does not mean an app is compatible with the bundled engines. Other mobile platforms are on the roadmap.
 
@@ -117,21 +117,6 @@ Completed catalog downloads are also added to your library. A catalog record alo
 
 Metadata and icons are read locally. Missing or unreadable icons use a fallback. Legacy CgBI PNG icons are supported; icons stored only in `Assets.car` are not currently decoded. Removing an imported IPA preserves its existing save data.
 
-## Roadmap: more mobile history by 2028
-
-The goal is **at least partial emulation support for each of these formats by the end of 2028**:
-
-| Format | Platform | Current status |
-| --- | --- | --- |
-| `.ipa` | Legacy iOS | Available now for compatible 32-bit ARM apps |
-| `.bar` | BlackBerry | Planned |
-| `.sisx` | Symbian | Planned |
-| `.ipk` | webOS | Planned |
-| `.apk` | Android 1.x–3.x apps | Planned |
-
-For future platforms, **partial support** means inspecting a package, loading or installing it, booting at least one representative test app, accepting input, and documenting working features and limitations. Package inspection alone does not count as emulation support.
-
-These are development goals, not guarantees of full platform or app compatibility. The current Android host app and exported Android wrappers do not mean legacy Android guest emulation is already implemented.
 
 ## Troubleshooting
 
@@ -149,11 +134,6 @@ These are development goals, not guarantees of full platform or app compatibilit
 The 1.1 Android release was built using **JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.10.1, and Android SDK 35**, with minimum API 23. The release retains the existing native engine binaries.
 
 The source includes regression tests under `cosma/tests`. From the project root, after building the Android release APK and configuring the Android SDK and Java environment:
-
-```sh
-python3 -m unittest discover -s cosma/tests -p 'test_*.py'
-python3 cosma/tests/verify_wrappers.py android/app/build/outputs/apk/release/app-release.apk
-```
 
 The wrapper verification script also requires the Android build tools and the cached `apksig` dependency, or an explicit `APKSIG_JAR` path.
 
