@@ -4,7 +4,7 @@
 
 A legacy mobile app preservation project for Android. Import your collection, browse a catalog, choose an HLE engine, and bring compatible old iOS apps back to life.
 
-Previously called **Cosma**. Current release: **1.2.1**.
+Previously called **Cosma**. Current release: **1.3**.
 
 > Current emulation focuses on **legacy 32-bit ARM iOS apps**. The catalog includes entries from the iOS 2–10 era, but catalog availability does not mean an app is compatible with the bundled engines. Other mobile platforms are on the roadmap.
 
