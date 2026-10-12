@@ -1,77 +1,7 @@
 # PocketArchive
 
-**Old apps. New pocket.**
-
 A legacy mobile app preservation project for Android. Import your collection, browse a catalog, choose an HLE engine, and bring compatible old iOS apps back to life.
 
-Previously called **Cosma**. Current release: **1.3**.
-
-> Current emulation focuses on **legacy 32-bit ARM iOS apps**. The catalog includes entries from the iOS 2–10 era, but catalog availability does not mean an app is compatible with the bundled engines. Other mobile platforms are on the roadmap.
-
-## Features
-
-- **Your own app library** — import IPAs and display their original names and icons when readable.
-- **Direct app launch** — start the selected app inside the emulator without another app picker.
-- **Three HLE engines** — choose a global default or a different engine for each app.
-- **Legacy app catalog** — browse and search catalog data sourced from LegStore.
-- **Concurrent downloads** — download several apps at once with an adjustable worker limit.
-- **Standalone APK export** — package an IPA and its selected emulator engine into an Android app.
-- **Collection tools** — favorites, search, sorting, recent launches, and storage information.
-- **First-launch welcome screen** and an icon zoom/fade opening animation, with a reduced-motion option.
-
-## Requirements
-
-| Requirement | Supported configuration |
-| --- | --- |
-| Android version | Android 6.0 or later |
-| Device architecture | ARM64 / arm64-v8a |
-| Current guest format | Legacy iOS `.ipa` |
-| Current guest architecture | 32-bit ARM, subject to engine compatibility |
-| Internet access | Needed for catalog downloads; local imports do not need downloading |
-
-Allow enough free storage for downloaded IPAs, temporary files, and any APKs you export. Some apps depend on services that no longer exist.
-
-## Getting started
-
-1. Install **PocketArchive-1.1-arm64.apk** on a supported Android device.
-2. Open PocketArchive and complete the welcome screen.
-3. Select your default HLE engine.
-4. Import a local IPA, or find an entry in the catalog and download it into your library.
-5. Open an app from your library. Long-press a library item for quick launch.
-
-You can reopen onboarding through **Tools → Welcome & quick guide**.
-
-### Updating from Cosma or PocketArchive 1.0
-
-The supplied 1.1 APK uses the same release signing key and Android application ID, `org.cosma.emulator.v2`, as Cosma 0.2.0 and PocketArchive 1.0. Install it over the existing app to retain its data. Cosma 0.1.x uses a different package and does not migrate automatically.
-
-Do not uninstall your existing installation just to update: uninstalling can remove app data and the local signing key used for exported wrappers. A build signed with a different key cannot replace the existing installation directly.
-
-## HLE engines
-
-| Engine | Upstream project |
-| --- | --- |
-| BerryPVZ HyperHLE fork | [BerryPVZ/HyperHLE-Fork](https://github.com/BerryPVZ/HyperHLE-Fork) |
-| KlugKlugTG HyperHLE fork | [KlugKlugTG/HyperHLE-Fork](https://github.com/KlugKlugTG/HyperHLE-Fork) |
-| touchHLE | [touchHLE/touchHLE](https://github.com/touchHLE/touchHLE) |
-
-Compatibility varies by app and engine. An app that fails with one engine may behave differently with another. PocketArchive bundles engine builds; selecting an engine does not automatically fetch the latest upstream version.
-
-## Downloads
-
-Open **↓** in the header or **Tools → Downloads / workers**.
-
-- Choose **1–6 concurrent workers**. The default is **3**, and your setting is remembered.
-- Track individual download states, transferred bytes, and total size when available.
-- Cancel or retry one download, cancel all active downloads, or clear completed history.
-- Download into your library or download a catalog entry for APK export through the same queue.
-- Select **Make APK** on a completed download to open the exporter.
-
-Raising the worker limit starts more waiting downloads. Lowering it lets existing transfers finish before the lower limit takes effect. Clearing history does not delete completed library IPAs.
-
-Downloads can continue after leaving the download or export screen through an Android foreground service. Android battery policies or process termination can still interrupt them. Unfinished jobs restored after a process restart are marked **Interrupted** and require Retry. **Retries start from the beginning; byte-range resume is not implemented.**
-
-Incoming files are staged and checked before appearing in the library. Duplicate active URLs share a job, and separate transfers use unique filenames to avoid overwriting one another. Up to 150 finished history entries are retained across launches.
 
 ## IPA → APK
 
@@ -129,26 +59,6 @@ Metadata and icons are read locally. Missing or unreadable icons use a fallback.
 | An icon is missing | The IPA may lack a readable icon or store it in an unsupported asset format. |
 | An APK update will not install | Check the device requirements, package, and signing key. Exported wrappers need the same signing key for updates. |
 
-## Development and validation
-
-The 1.1 Android release was built using **JDK 17, Gradle 8.11.1, Android Gradle Plugin 8.10.1, and Android SDK 35**, with minimum API 23. The release retains the existing native engine binaries.
-
-The source includes regression tests under `cosma/tests`. From the project root, after building the Android release APK and configuring the Android SDK and Java environment:
-
-The wrapper verification script also requires the Android build tools and the cached `apksig` dependency, or an explicit `APKSIG_JAR` path.
-
-Validation covers queue concurrency and cancellation, retry and interrupted recovery, IPA inspection, download writes, and generated wrappers for all three engines, including signatures and alignment. **These checks do not establish successful gameplay or replace physical-device testing.** Repository-wide lint still includes inherited SDL/API/permission diagnostics.
-
-## Contributing
-
-Useful contributions include compatibility reports, reproducible fixes, accessibility improvements, catalog corrections, and work toward additional legacy platforms.
-
-For a bug report, include:
-
-- PocketArchive version, device model, and Android version.
-- App name, version, and selected HLE engine.
-- Reproduction steps and what happened versus what you expected.
-- Relevant logs or screenshots, with personal information removed.
 
 ## Credits and preservation
 
